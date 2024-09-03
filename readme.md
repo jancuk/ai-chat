@@ -20,4 +20,4 @@ This Chrome extension adds an AI chat interface to any webpage, allowing quick v
 
 After installation, you'll see a chat interface in the bottom right corner of your browser. Simply type your question or paste content from the webpage to get AI assistance.
 
-<img src="https://i.ibb.co.com/N3Vnt2P/Screenshot-2024-08-06-at-22-02-46.png" alt="ui" width="400"/>
+<img src="https://i.imghippo.com/files/KsOo11725375563.png" alt="ui" width="400"/>
