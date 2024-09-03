@@ -235,6 +235,10 @@ function initializeChatInterface() {
     e.preventDefault();
     const userMessage = userInput.value.trim();
     const selectedModel = modelSelector.value;
+    const apiKey = apiKeyInput.value.trim();
+
+    // Store API key in local storage
+    localStorage.setItem('apiKey', apiKey);
 
     if (!userMessage && !capturedImageBlob) return;
 
@@ -254,6 +258,9 @@ function initializeChatInterface() {
       const response = await fetch("https://ai-chat-w50i.onrender.com/chat", {
         method: "POST",
         body: formData,
+        headers: {
+          'x-api-key': apiKey,
+        },
       });
 
       if (!response.ok) {
@@ -545,6 +552,29 @@ function initializeChatInterface() {
       updateImagePreviewSize();
     }
   });
+
+  const apiKeyInput = document.createElement('input');
+  apiKeyInput.type = 'password';
+  apiKeyInput.placeholder = 'Enter API Key';
+  apiKeyInput.classList.add('border', 'rounded', 'px-2', 'py-1', 'mr-2');
+
+  apiKeyInput.addEventListener('input', () => {
+    apiKeyInput.placeholder = '*'.repeat(apiKeyInput.value.length);
+  });
+
+  const headerContainer = document.createElement('div');
+  headerContainer.classList.add('flex', 'items-center', 'mb-2');
+  headerContainer.appendChild(apiKeyInput);
+
+  const chatInput = document.getElementById('chat-input');
+  chatInput.insertBefore(headerContainer, chatInput.firstChild);
+
+  // Load API key from local storage
+  const storedApiKey = localStorage.getItem('apiKey');
+  if (storedApiKey) {
+    apiKeyInput.value = storedApiKey;
+    apiKeyInput.placeholder = '*'.repeat(storedApiKey.length);
+  }
 }
 
 loadStyles(styles);

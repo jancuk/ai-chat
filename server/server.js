@@ -12,6 +12,18 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// API key configuration
+const API_KEY = process.env.API_KEY;
+
+// Middleware to validate API key
+app.use((req, res, next) => {
+  const apiKey = req.headers['x-api-key'];
+  if (!apiKey || apiKey !== API_KEY) {
+    return res.status(401).json({ error: 'Invalid API key' });
+  }
+  next();
+});
+
 // API configurations
 const CLAUDE_API_KEY = process.env.CLAUDE_API_KEY;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
